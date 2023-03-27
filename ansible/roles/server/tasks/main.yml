@@ -14,5 +14,4 @@
     owner: root
     group: root
     mode: 0755
-
-- name:
+  notify: start openvpn
