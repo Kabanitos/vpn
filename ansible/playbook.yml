@@ -1,0 +1,40 @@
+- host: all
+  become: yes
+  become_user: root
+  tasks:
+  - name: install package
+      yum:
+        name:
+          - epel-release
+          - openvpn
+          - iperf3
+        state: latest
+        update_cache: true 
+  - name: SELinux 0
+    command: setenforce 0
+    ignore_errors: true
+    changed_when: false 
+
+
+- hosts: server
+  become: yes
+  become_user: root
+  
+  roles:
+      - time
+      - rsyslog
+      - audit-server
+
+- hosts: client
+  become: yes
+  become_user: root
+  
+  roles:
+      - time
+      - nginx
+      - audit-client
+  
+  vars_files:
+    - vars.yml
+
+  

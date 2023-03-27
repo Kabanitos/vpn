@@ -1,0 +1,18 @@
+---
+- name: Copy file config openvpn
+  ansible.builtin.template:
+    src: server.conf.j2
+    dest: /etc/openvpn/server.conf
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Copy file daemon openvpn 
+  ansible.builtin.copy:
+    src: openvpn@.service
+    dest: /etc/systemd/system/openvpn@.service
+    owner: root
+    group: root
+    mode: 0755
+
+- name:
